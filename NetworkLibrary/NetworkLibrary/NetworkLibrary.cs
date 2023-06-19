@@ -3,15 +3,17 @@
 public class NetworkLibrary
 {
     /// <summary>
-    /// Create listener -> "http://{adress}/{endpoint}/"
+    /// Create listener http://{adress}/{endpoint}/
     /// </summary>
     /// <param name="adress"></param>
     /// <param name="endpoint"></param>
     /// <returns></returns>
-    public static HttpListener ServerCreateListenerWithEndpoint(string adress, string endpoint)
+    public static HttpListener ServerCreateListenerWithEndpoint(string address, string endpoint)
     {
+        // Note: Endpoint don't contain any header messages but only defines the endpoint: address/getdate/
+
         HttpListener listener = new();
-        listener.Prefixes.Add($"http://{adress}/{endpoint}/");
+        listener.Prefixes.Add($"http://{address}/{endpoint}/");
         listener.Start();
         return listener;
     }
@@ -69,7 +71,7 @@ public class NetworkLibrary
     /// </summary>
     /// <param name="baseAddress"></param>
     /// <returns></returns>
-    public static HttpClient ClientCreateHttpClient(string baseAddress)
+    public static HttpClient ClientCreateHttpClientWithBaseAdress(string baseAddress)
     {
         HttpClient client = new()
         {
@@ -81,12 +83,12 @@ public class NetworkLibrary
     }
 
     /// <summary>
-    /// Receive a message from client request EXAMPLE: "example/getdate/?apikey=testkey";
+    /// Receive a message from client request EXAMPLE: example/getdate/?apikey=testkey;
     /// </summary>
     /// <param name="httpClient"></param>
     /// <param name="endpoint"></param>
     /// <returns></returns>
-    public static string ClientReceiveMessage(HttpClient httpClient, string endpoint)
+    public static string ClientReceiveMessageFromEndpoint(HttpClient httpClient, string endpoint)
     {
         // ENDPOINT EXAMPLE: "example/getdate/?apikey=testkey";
 
